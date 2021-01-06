@@ -1,11 +1,18 @@
-import React from "react";
-import Header from "../../components/Header";
-import SideBar from "../../components/SideBar";
-import { Row, Col } from "reactstrap";
+import React, { useState } from "react";
+import TicketsView from "../../views/TicketsView";
+import { InputGroup, InputGroupAddon, Button, Input } from "reactstrap";
+import { FaList } from "react-icons/fa";
+import { List, ListItem, ListItemText } from "@material-ui/core";
 
-import { Container } from "./styles";
+import { Container, Header, Sidebar, Footer } from "./styles";
 
 const Dashboard: React.FC = () => {
+  const [isActive, setIsActive] = useState(true);
+
+  const toogleSideBar = () => {
+    setIsActive(!isActive);
+  };
+
   const items = [
     {
       name: "Minhas Solicitações",
@@ -23,19 +30,44 @@ const Dashboard: React.FC = () => {
 
   return (
     <Container fluid>
-      <div id="header">
-        <Header></Header>
-      </div>
-
-      <div id="layout-container">
-        <div id="sidebar">
-          <SideBar items={items}></SideBar>
+      <Header id="header">
+        <div className="header-container-1">
+          <div className="sidebar-button-mobile">
+            <FaList onClick={toogleSideBar} size={25} />
+          </div>
+          <div className="logo-container">Logo</div>
         </div>
+        <div className="search-container">
+          <InputGroup>
+            <Input />
+            <InputGroupAddon addonType="append">
+              <Button>Search</Button>
+            </InputGroupAddon>
+          </InputGroup>
+        </div>
+        <div>Opções</div>
+      </Header>
 
-        <div id="rest">
-          <div id="content">Content</div>
+      <div id="row-container">
+        <Sidebar id="sidebar" isActive={isActive}>
+          <List id="menu-options" disablePadding dense>
+            {items &&
+              items.map((item) => (
+                <ListItem button key={item.name}>
+                  <ListItemText>{item.label}</ListItemText>
+                </ListItem>
+              ))}
+          </List>
+          <div id="hide-button" onClick={toogleSideBar}>
+            <div>{isActive ? "<" : ">"}</div>
+          </div>
+        </Sidebar>
 
-          <footer>Desk Thauã. Todos os direitos reservados. 2021</footer>
+        <div id="view-container">
+          <main id="content-wrapper">
+            <TicketsView />
+          </main>
+          <Footer>Desk Thauã. Todos os direitos reservados. 2021</Footer>
         </div>
       </div>
     </Container>
