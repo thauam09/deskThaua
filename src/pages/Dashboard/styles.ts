@@ -11,17 +11,27 @@ export const Container = styled(ContainerReactstrap)`
   #sidebar {
   }
 
-  #row-container {
-    display: flex;
-    height: calc(100% - 80px);
-  }
-
   #view-container {
-    flex: 1;
-    height: 100%;
+    position: fixed;
+    right: 0;
+    top: 80;
+    height: calc(100% - 80px);
+    width: calc(100vw - 50px);
+
+    @media screen and (max-width: 600px) {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      height: calc(100vh - 80px);
+      width: 100vw;
+    }
   }
 
   #content-wrapper {
+    position: relative;
+    top: 0;
+    right: 0;
+    max-width: 100%;
     height: calc(100% - 50px);
     overflow-y: auto;
   }
@@ -96,18 +106,21 @@ export const Sidebar = styled.div<ContainerProps>`
             opacity: 0;
           }
         `}
-
+  position: fixed;
+  top: 80px;
+  left: 0;
+  height: calc(100vh - 80px);
   display: flex;
   flex-direction: column;
   background-color: #f3f3f8;
   border: 1px solid rgba(0, 0, 0, 0.1);
   box-shadow: 0px 6px 5px;
   z-index: 1;
-  transition: width 1s;
+  transition: width 0.4s;
 
   #menu-options {
     flex: 1;
-    transition: margin 1s, opacity 0.7s;
+    transition: margin 0.4s, opacity 0.2s;
   }
 
   #hide-button {
@@ -161,8 +174,6 @@ export const Sidebar = styled.div<ContainerProps>`
     background-color: #f3f3f8;
 
     transition: height 1s, visibility 1s;
-    /* transition-delay: 5s;
-    transition-property: display; */
 
     #menu-options {
       span {

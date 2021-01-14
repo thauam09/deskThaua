@@ -22,6 +22,10 @@ const Global = createGlobalStyle`
     font-weight: 500;
   }
 
+  p {
+    margin: 0;
+  }
+
   html, body, #root {
     height: 100%;
   }
